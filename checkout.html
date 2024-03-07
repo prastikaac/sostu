@@ -397,11 +397,11 @@
 
 
 		function calculateOverallTotal() {
-            let totalPrices = Array.from(document.querySelectorAll("#checkoutTableBody tr td:nth-child(4)")).map(td => parseFloat(td.textContent.replace("Rs.", "")));
-            let overallTotal = totalPrices.reduce((total, price) => total + price, 0);
-            document.getElementById("overallTotalCell").textContent = "Rs. " + overallTotal.toFixed(2);
-            document.getElementById("overallTotalInput").value = overallTotal.toFixed(2);
-        }
+			let totalPrices = Array.from(document.querySelectorAll("#checkoutTableBody tr td:nth-child(4)")).map(td => parseFloat(td.textContent.replace("Rs.", "")));
+			let overallTotal = totalPrices.reduce((total, price) => total + price, 0);
+			document.getElementById("overallTotalCell").textContent = "Rs. " + overallTotal.toFixed(2);
+			document.getElementById("overallTotalInput").value = overallTotal.toFixed(2);
+		}
 
 
 
