@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+
+<head>
+	<style>
+		table {
+			border-collapse: collapse;
+			width: 100%;
+			margin-bottom: 20px;
+		}
+
+		th,
+		td {
+			border: 1px solid #dddddd;
+			text-align: left;
+			padding: 8px;
+		}
+
+		th {
+			background-color: #f2f2f2;
+		}
+
+		#checkoutButton {
+			padding: 10px 20px;
+			background-color: #4CAF50;
+			color: white;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+		}
+
+		.input-field {
+			width: 100%;
+			padding: 8px;
+			box-sizing: border-box;
+		}
+	</style>
+</head>
+
+<body>
+	<h1>Checkout</h1>
+	<h2>Selected Products Table</h2>
+	<style>
+		/* Media query for desktop screens */
+		@media only screen and (min-width: 768px) {
+			.order-notification {
+				margin-top: 0px;
+				margin-bottom: -270px;
+			}
+
+			.thank {
+				font-size: 28px;
+			}
+
+
+
+			.popup {
+				top: 0;
+			}
+
+
+			.noti br,
+			.notif br {
+				display: none;
+			}
+
+
+			.noti {
+				margin-top: -15px;
+				font-family: 'Poppins', sans-serif;
+				font-size: 20px !important;
+				font-weight: 600;
+			}
+
+			.notif {
+				font-family: 'Poppins', sans-serif;
+				margin-top: -15px;
+				margin-bottom: 25px;
+				font-size: 20px !important;
+				font-weight: 600;
+			}
+		}
+
+		/* Media query for mobile screens */
+		@media only screen and (max-width: 767px) {
+			.order-notification {
+				/* Adjust the margin for mobile */
+				margin-top: 110px;
+				margin-bottom: -210px;
+			}
+
+			.thank {
+				font-size: 24px;
+				margin-top: 15px;
+			}
+		}
+
+
+
+
+		.cart-img {
+			width: 100px;
+			height: 100px;
+		}
+
+		@media only screen and (max-width: 767px) {
+			.cart-img {
+				width: 80px;
+				height: 80px;
+			}
+
+
+
+			.popup {
+				top: -110px;
+			}
+
+			.popup-content {
+				padding-top: 40px !important;
+				padding-bottom: 40px !important;
+
+			}
+
+			.noti {
+				margin-top: -5px;
+				font-size: 18px !important;
+				font-family: 'Poppins', sans-serif;
+				font-weight: 600;
+			}
+
+			.notif {
+				margin-top: -10px;
+				margin-bottom: 25px;
+				font-size: 18px !important;
+				font-family: 'Poppins', sans-serif;
+				font-weight: 600;
+			}
+
+
+		}
+	</style>
+
+	<!-- Add this to your existing HTML structure, preferably inside the <body> tag -->
+	<div id="orderSuccessPopup" class="popup order-notification popupContainer">
+		<div class="popup-content">
+			<span class="close-popup" onclick="closePopup()">&times;</span>
+			<div class="cart-png" style="text-align: center; align-items: center; justify-content: center;">
+				<style>
+					.cart-png {
+						display: flex;
+						justify-content: center;
+						align-items: center;
+						/* Add any additional styling to the container if needed */
+					}
+
+					.cart-png::before {
+						content: '';
+						background-image: url('images/cart-check.png');
+						display: block;
+						/* Set your desired smaller width and height */
+						width: 110px;
+						height: 100px;
+						background-size: cover;
+						/* or contain, depending on your preference */
+						/* Additional styling if needed */
+
+						/* Center the image within the flex container */
+					}
+				</style>
+			</div>
+
+			<div class="popcon">
+				<h1 class="thank" style="color: black;">Your Order
+					has been placed
+					successfully!</h1>
+				<p style="margin: 10px;" class="popupText noti">
+					Thank you for shopping <br>
+					with Wellness Nepal.</p>
+				<p style="margin: 10px;" class="popupText notif">You
+					will be soon notified
+					<br> about your order status.
+				</p>
+				<a class="acceptButton button" href="https://wellnessnepal.com.np/">Back to
+					Home</a> <br>
+				<p class="popupText notif" style="color: transparent; font-size: 10px !important; ">
+					Thank you</p>
+			</div>
+		</div>
+	</div>
+
+	<!-- Updated styles for the popup -->
+	<style>
+		/* Styles for PC */
+		@media (min-width: 768px) {
+			.popcon {
+				margin-top: -20px;
+			}
+
+
+			.popup-content {
+				height: 80%;
+			}
+
+		}
+
+		/* Styles for Mobile */
+		@media (max-width: 767px) {
+			.popcon {
+				margin-bottom: -50px;
+			}
+		}
+
+		.mainContainer {
+			padding: 0;
+			margin: 0;
+			background-color: #f5f5f5;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: 100vh;
+		}
+
+		.popupContainer {
+			width: 320px;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			background-color: #fff;
+			color: #000;
+			text-align: center;
+			border-radius: 20px;
+			padding: 30px 30px 70px;
+
+			.closeButton {
+				width: 30px;
+				font-size: 20px;
+				color: #c0c5cb;
+				align-self: flex-end;
+				background-color: transparent;
+				border: none;
+				margin-bottom: 10px;
+			}
+
+			.popupImage {
+				width: 100px;
+				margin-bottom: 15px;
+			}
+
+			.popupText {
+				font-size: 18px;
+			}
+
+			.acceptButton {
+				border: none;
+				border-radius: 5px;
+				width: 200px;
+				padding: 14px;
+				font-size: 16px;
+				margin-top: 10px !important;
+				justify-content: center !important;
+				box-shadow: 0px 6px 18px -5px rgba(237, 103, 85, 1);
+			}
+		}
+
+		.popupContainer {
+			/* Existing styles... */
+
+			/* Added animation properties */
+			opacity: 0;
+			animation: fadeIn 0.5s ease-in-out forwards;
+		}
+
+		@keyframes fadeIn {
+			from {
+				opacity: 0;
+			}
+
+			to {
+				opacity: 1;
+			}
+		}
+
+
+		.popup {
+			display: none;
+			position: fixed;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background: rgba(0, 0, 0, 0.861);
+			justify-content: center;
+			align-items: center;
+			z-index: 999;
+			border-radius: 0px;
+		}
+
+		.popup-content {
+			text-align: center;
+			padding: 20px;
+			background: #fff;
+			border-radius: 10px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+			max-width: 700px;
+			width: 100%;
+		}
+
+		.close-popup {
+			position: absolute;
+			top: 10px;
+			right: 10px;
+			font-size: 20px;
+			color: transparent;
+			cursor: pointer;
+		}
+	</style>
+
+
+	<br> <br>
+	<div class="row">
+		<div class="col-lg-8">
+			<div class="checkout-accordion-wrap">
+				<div class="accordion" id="accordionExample">
+
+
+					<div id="orderFormContainer">
+						<div class="order-details-wrap">
+							<style>
+								.order-details {
+									border-collapse: collapse;
+									width: 100%;
+								}
+
+								.order-th,
+								.order-td {
+									border: 1px solid #dddddd;
+									text-align: left;
+									padding: 8px;
+								}
+
+								.order-th {
+									background-color: #f2f2f2;
+								}
+
+
+								.qua {
+									padding: 5px;
+									cursor: pointer;
+									background-color: #482dff;
+									color: white;
+									font-weight: 700;
+									border: none;
+									border-radius: 3px;
+									margin: 2px;
+									/* Adjusted margin */
+								}
+
+								input {
+									font-family: "Poppins", sans-serif;
+								}
+
+								input::-webkit-outer-spin-button,
+								input::-webkit-inner-spin-button {
+									-webkit-appearance: none;
+									margin: 0;
+								}
+
+
+
+								.order-details-body #Products {
+									max-width: 200px;
+									/* Adjust the maximum width as needed */
+									overflow: hidden;
+									text-overflow: ellipsis;
+									white-space: nowrap;
+
+								}
+							</style>
+
+
+							<style>
+								/* Styles for desktop */
+								@media (min-width: 768px) {
+									table {
+										font-size: 18px !important;
+										min-width: 100% !important;
+									}
+								}
+
+								@media only screen and (max-width: 600px) {
+
+									table {
+										font-size: 12px !important;
+										padding: 3%;
+										min-width: 100%;
+
+									}
+
+									th,
+									td {
+										padding: 5px !important;
+									}
+								}
+
+								th,
+								td {
+									border: 1px solid !important;
+								}
+
+								table {
+									border: none !important;
+								}
+							</style>
+
+
+
+
+
+
+
+							<style>
+								.delivery {
+									font-size: 15px;
+									font-weight: 600;
+									font-family: "Poppins", sans-serif;
+								}
+
+								@media only screen and (max-width: 768px) {
+									.delivery {
+										font-size: 13.5px;
+										font-weight: 600;
+										font-family: "Poppins", sans-serif;
+									}
+								}
+							</style>
+
+							<style>
+								/* Checkbox styles */
+								input[type="checkbox"] {
+									font-size: 15px;
+									font-weight: 600;
+									font-family: "Poppins", sans-serif;
+									margin-right: 5px;
+									/* Add some spacing between the checkbox and the label */
+								}
+							</style>
+
+
+
+
+							<style>
+								.place-order:hover {
+									background-color: #051922 !important;
+								}
+
+								.place-order {
+									cursor: pointer;
+								}
+
+								.qua:hover {
+									background-color: #051922 !important;
+									color: white;
+								}
+							</style>
+
+							<table>
+								<thead>
+									<tr>
+										<th>Product</th>
+										<th>Quantity</th>
+										<th>Unit Price</th>
+										<th>Total Price</th>
+									</tr>
+
+								</thead>
+								<tbody id="checkoutTableBody">
+								</tbody>
+								<!-- Add the following row at the end of the table -->
+
+
+								<tfoot>
+									<tr>
+										<td colspan="3" style="text-align: right;">Overall Total :</td>
+										<td id="overallTotalCell"></td>
+									</tr>
+								</tfoot>
+
+							</table>
+
+							<form
+								action="https://script.google.com/macros/s/AKfycbyPzl_vCLQ-w5i16fpUaxtr2FUioxBolqSyxW9k0ydYh7-FhjnZkRSbm-OiyIC2W-80lA/exec"
+								method="POST" name="orderForm" onsubmit="return validateAndSubmitForm()">
+
+
+								<p><input type="text" name="fullName" placeholder="Name">
+								</p>
+								<p><input type="email" name="email" placeholder="Email">
+								</p>
+								<p><input type="text" name="address" placeholder="Address">
+								</p>
+								<p><input type="text" name="phone" placeholder="Phone No">
+								<p><input type="text" id="overallTotalInput" name="overallTotal"
+										placeholder="Overall Total" readonly></p>
+
+								<p><input id="notifmail" style="display: none;" type="text" name="notifmail"
+										placeholder="notifmail" value="Received"></p>
+								</p>
+								<div id="productFields"></div>
+
+								<label>
+									<textarea style="resize: vertical; height: 100px; font-weight: 100;"
+										class="cInpt cMsg" name="bill" id="message bill" placeholder="Message"
+										rows="5"></textarea>
+								</label>
+
+								<p><input style="display: none;" type="text" name="MailStatus" placeholder="Pending"
+										value="Pending"></p>
+								<p><input style="display: none;" type="text" name="OrderStatus" placeholder="Received"
+										value="Received"></p>
+								<p><input style="display: none;" type="text" name="Time" id="dateTimeInput"
+										placeholder="Date and Time"></p>
+								<style>
+									.delivery {
+										font-size: 15px;
+										font-weight: 600;
+										font-family: "Poppins", sans-serif;
+									}
+
+									@media only screen and (max-width: 768px) {
+										.delivery {
+											font-size: 13.5px;
+											font-weight: 600;
+											font-family: "Poppins", sans-serif;
+										}
+									}
+								</style>
+
+								<style>
+									/* Checkbox styles */
+									input[type="checkbox"] {
+										font-size: 15px;
+										font-weight: 600;
+										font-family: "Poppins", sans-serif;
+										margin-right: 5px;
+										/* Add some spacing between the checkbox and the label */
+									}
+								</style>
+
+								<label class="delivery" for="deliveryOption">Do you want home delivery?</label>
+								<div class="checkbox-wrapper-55 delivery">
+									<label class="rocker rocker-small">
+										<input type="checkbox" id="deliveryOption" name="HomeDelivery" value="yes"
+											onclick="handleDeliveryOption(), check()">
+										<span class="switch-left">Yes</span>
+										<span class="switch-right">No</span>
+									</label>
+									<p class="delivery" id="pickupMessage"
+										style="margin-bottom: 10px !important; color: red;">
+										*Visit store to Pickup your Product & Grab 10% discount*
+									</p>
+
+								</div>
+
+								<script>
+									// Call showPickupMessage initially to display the message by default
+									showPickupMessage(true);
+
+									function check() {
+										var deliveryCheckbox = document.getElementById("deliveryOption");
+										showPickupMessage(!deliveryCheckbox.checked);
+									}
+
+									function showPickupMessage(show) {
+										var pickupMessage = document.getElementById("pickupMessage");
+										pickupMessage.style.display = show ? "block" : "none";
+									}
+								</script>
+								<script>
+									function handleDeliveryOption() {
+										var deliveryCheckbox = document.getElementById("deliveryOption");
+										var overallTotalInput = document.getElementById("overallTotalInput");
+										var uploadSection = document.getElementById("uploadSection");
+
+										var overallTotalPrice = parseFloat(overallTotalInput.value.replace("Rs. ", ""));
+
+										if (overallTotalPrice >= 500) {
+											deliveryCheckbox.disabled = false;
+										} else {
+											deliveryCheckbox.disabled = true;
+											deliveryCheckbox.checked = false;
+											alert("Home delivery is only available for orders above Rs. 500!");
+										}
+
+										if (deliveryCheckbox.checked) {
+											uploadSection.style.display = "block"; // Show the upload section if home delivery is selected
+										} else {
+											uploadSection.style.display = "none"; // Hide the upload section if home delivery is not selected
+										}
+									}
+
+								</script>
+								<script>
+									function showPickupMessage(show) {
+										var pickupMessage = document.getElementById("pickupMessage");
+										var deliveryCheckbox = document.getElementById("deliveryOption");
+
+										if (!deliveryCheckbox.checked && show) {
+											pickupMessage.innerText = "*Visit store to Pickup your Product & Grab 10% discount*";
+											pickupMessage.style.display = "block";
+										} else {
+											pickupMessage.style.display = "none";
+										}
+									}
+								</script>
+
+								<script>
+									// Function to get current date, day, and time in 12-hour format
+									function getCurrentDateTime12Hour() {
+										var currentDate = new Date();
+										var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+										var day = days[currentDate.getDay()];
+										var hours = currentDate.getHours() % 12 || 12; // Convert to 12-hour format
+										var minutes = currentDate.getMinutes();
+										var ampm = hours >= 12 ? 'PM' : 'AM';
+										var formattedDateTime = currentDate.toLocaleDateString() + ' ' + day + ', ' + hours + ':' + (minutes < 10 ? '0' : '') + minutes + ' ' + ampm;
+										return formattedDateTime;
+									}
+
+									// Set the value of the input field with the formatted date, day, and time
+									document.getElementById('dateTimeInput').value = getCurrentDateTime12Hour();
+								</script>
+
+								<style>
+									.home {
+										margin-left: 0px;
+										margin-right: 0px;
+									}
+
+									/* Style for the select dropdown */
+									.area {
+										padding: 8px;
+										font-size: 14px;
+										border: 1px solid #ccc;
+										border-radius: 4px;
+										width: 200px;
+										/* Adjust the width as needed */
+										pointer-events: all;
+									}
+
+									/* Style for the options within the dropdown */
+									.area option {
+										font-size: 14px;
+									}
+								</style>
+
+								<div class="delivery home" id="uploadSection" style="display: none;">
+
+
+									<style>
+										.area-container {
+											display: flex;
+											align-items: center;
+											margin-bottom: 10px;
+										}
+
+										.area-container label {
+											margin-right: 10px;
+										}
+									</style>
+
+
+									<label for="location">Location:</label>
+									<select id="location" name="location" onchange="showSubDropdown()">
+										<option value="" disabled selected>Select a location</option>
+										<option value="Sunsari">Sunsari</option>
+										<option value="Morang">Morang</option>
+										<option value="Jhapa">Jhapa</option>
+									</select>
+
+									<div class="sub-dropdown-container" id="subDropdownContainer" style="display:none;">
+										<div class="area-container">
+											<label for="subLocation">Area:</label>
+											<div class="custom-dropdown">
+												<select id="subLocation" name="subLocation" class="area"
+													onchange="showLandmarkInput()">
+													<option value="" disabled selected>Select an area</option>
+												</select>
+											</div>
+										</div>
+									</div>
+
+									<div id="shippingFeeMessage" style="display:none;"></div>
+									<div id="landmarkInput" style="display:none;">
+										<label for="placeName">Your Place Name:</label>
+										<input type="text" id="placeName" name="placeName"
+											placeholder="Your place name">
+									</div>
+
+									<script>
+										function showSubDropdown() {
+											var locationDropdown = document.getElementById("location");
+											var subDropdownContainer = document.getElementById("subDropdownContainer");
+											var shippingFeeMessage = document.getElementById("shippingFeeMessage");
+
+											// Clear previous options
+											var subLocationDropdown = document.getElementById("subLocation");
+											subLocationDropdown.innerHTML = "";
+											var defaultOption = new Option("Select an area", "");
+											defaultOption.disabled = true;
+											defaultOption.selected = true;
+											subLocationDropdown.add(defaultOption);
+
+											// Create and populate sub-dropdown based on selected location
+											if (locationDropdown.value === "Sunsari") {
+												addOptionsToSubDropdown(["Itahari Area", "Other Area"]);
+											} else if (locationDropdown.value === "Morang") {
+												addOptionsToSubDropdown(["Urlabari Area", "Other Area"]);
+											} else if (locationDropdown.value === "Jhapa") {
+												addOptionsToSubDropdown(["Damak Area", "Birtamode Area", "Other Area"]);
+											}
+
+											// Hide shipping fee message and landmark input initially
+											shippingFeeMessage.style.display = "none";
+											landmarkInput.style.display = "none";
+
+											// Show the container after adding options
+											subDropdownContainer.style.display = "block";
+										}
+
+										function addOptionsToSubDropdown(options) {
+											var subLocationDropdown = document.getElementById("subLocation");
+											options.forEach(function (option) {
+												var optionElement = new Option(option, option);
+												subLocationDropdown.add(optionElement);
+											});
+										}
+
+									</script>
+
+									<script>
+										function showLandmarkInput() {
+											var subLocationDropdown = document.getElementById("subLocation");
+											var selectedOption = subLocationDropdown.options[subLocationDropdown.selectedIndex].value;
+											var shippingFeeMessage = document.getElementById("shippingFeeMessage");
+											var landmarkInput = document.getElementById("landmarkInput");
+
+											if (selectedOption === "Itahari Area" || selectedOption === "Urlabari Area" || selectedOption === "Damak Area" || selectedOption === "Birtamode Area") {
+												// Hide the input field for these areas
+												landmarkInput.style.display = "none";
+											} else if (selectedOption === "Other Area") {
+												// Show the input field for other areas
+												landmarkInput.style.display = "block";
+											} else {
+												// Hide the input field for all other options
+												landmarkInput.style.display = "none";
+											}
+
+											// Update shipping fee message
+											updateShippingFeeMessage(selectedOption);
+										}
+
+										function updateShippingFeeMessage(selectedOption) {
+											var shippingFeeMessage = document.getElementById("shippingFeeMessage");
+
+											if (selectedOption === "Itahari Area" || selectedOption === "Urlabari Area" || selectedOption === "Damak Area" || selectedOption === "Birtamode Area") {
+												shippingFeeMessage.innerHTML = "<span style='color:red;'>*Shipping fee is free for home delivery in " + selectedOption + ".*</span>";
+												shippingFeeMessage.style.display = "block";
+											} else if (selectedOption === "Other Area") {
+												shippingFeeMessage.innerHTML = "<span style='color:red;'>*Rs. 99 will be charged for home delivery in your area.*</span>";
+												shippingFeeMessage.style.display = "block";
+											} else {
+												shippingFeeMessage.style.display = "none";
+											}
+										}
+									</script>
+
+
+									<div id="subDropdownContainer" style="display:none;"></div>
+
+									<p><input type="text" name="landMark" id="landMark"
+											placeholder="Landmark *E.g. Tara Bhattrai house, Infront of Sahara Bank*">
+									</p>
+								</div>
+
+								<style>
+									/* Add your desired styles here */
+									.medium-image {
+										width: 50%;
+										/* Adjust the width as needed */
+										height: auto;
+										justify-content: left;
+										/* Center the image horizontally */
+									}
+
+									@media (max-width: 768px) {
+										.medium-image {
+											width: 100%;
+											/* Make the image full-width on screens up to 768px */
+										}
+									}
+								</style>
+
+								<button type="submit" name="submit" class="place-order cBtn button" id="orderbtn">Place
+									Order</button>
+
+								<style>
+									.place-order:hover {
+										background-color: #051922 !important;
+									}
+
+									.place-order {
+										cursor: pointer;
+									}
+
+									.qua:hover {
+										background-color: #051922 !important;
+										color: white;
+									}
+								</style>
+
+							</form>
+
+
+							<script>
+
+
+								window.onload = function () {
+									displaySelectedProducts();
+									calculateOverallTotal();
+								};
+
+
+								function calculateOverallTotal() {
+									let totalPrices = Array.from(document.querySelectorAll("#checkoutTableBody tr td:nth-child(4)")).map(td => parseFloat(td.textContent.replace("Rs.", "")));
+									let overallTotal = totalPrices.reduce((total, price) => total + price, 0);
+									document.getElementById("overallTotalCell").textContent = "Rs. " + overallTotal.toFixed(2);
+									document.getElementById("overallTotalInput").value = overallTotal.toFixed(2);
+								}
+
+
+
+								function displaySelectedProducts() {
+									let selectedProducts = JSON.parse(sessionStorage.getItem("selectedProducts") || "[]");
+									let checkoutTableBody = document.getElementById("checkoutTableBody");
+
+									selectedProducts.forEach(function (product, index) {
+										// Display in table
+										let row = checkoutTableBody.insertRow();
+										let productNameCell = row.insertCell(0);
+										let quantityCell = row.insertCell(1);
+										let unitPriceCell = row.insertCell(2);
+										let totalPriceCell = row.insertCell(3);
+
+										productNameCell.innerHTML = product.productName;
+										quantityCell.innerHTML = product.quantity;
+										unitPriceCell.innerHTML = "Rs. " + product.unitPrice;
+										totalPriceCell.innerHTML = "Rs. " + product.totalPrice;
+
+										// Fill form fields
+										let productFieldsDiv = document.getElementById("productFields");
+										let productNameInput = document.createElement("input");
+										productNameInput.setAttribute("type", "text");
+										productNameInput.setAttribute("name", "productName_" + index);
+										productNameInput.setAttribute("value", product.productName);
+										productNameInput.setAttribute("class", "input-field");
+										productFieldsDiv.appendChild(productNameInput);
+
+										let productQuantityInput = document.createElement("input");
+										productQuantityInput.setAttribute("type", "text");
+										productQuantityInput.setAttribute("name", "productQuantity_" + index);
+										productQuantityInput.setAttribute("value", product.quantity);
+										productQuantityInput.setAttribute("class", "input-field");
+										productFieldsDiv.appendChild(productQuantityInput);
+
+										let perProductPriceInput = document.createElement("input");
+										perProductPriceInput.setAttribute("type", "text");
+										perProductPriceInput.setAttribute("name", "perProductPrice_" + index);
+										perProductPriceInput.setAttribute("value", product.unitPrice);
+										perProductPriceInput.setAttribute("class", "input-field");
+										productFieldsDiv.appendChild(perProductPriceInput);
+
+										let totalPriceInput = document.createElement("input");
+										totalPriceInput.setAttribute("type", "text");
+										totalPriceInput.setAttribute("name", "totalPrice_" + index);
+										totalPriceInput.setAttribute("value", product.totalPrice);
+										totalPriceInput.setAttribute("class", "input-field");
+										productFieldsDiv.appendChild(totalPriceInput);
+									});
+								}
+
+
+
+
+
+
+							</script>
+
+
+
+							<script>
+								function validateAndSubmitForm() {
+									var fullName = document.forms["orderForm"]["fullName"].value.trim();
+									var email = document.forms["orderForm"]["email"].value.trim();
+									var phone = document.forms["orderForm"]["phone"].value.trim();
+									var address = document.forms["orderForm"]["address"].value.trim();
+									var homeDelivery = document.getElementById("deliveryOption").checked;
+									var location = document.getElementById("location").value.trim();
+									var subLocation = document.getElementById("subLocation").value.trim();
+									var landmark = document.getElementById("landMark").value.trim();
+									var placeName = document.getElementById("placeName").value.trim();
+
+									// Validate required fields
+									if (fullName === "" || email === "" || phone === "" || address === "") {
+										alert("Please fill in all required fields!");
+										return false;
+									}
+
+									// Validate email format
+									var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+									if (!emailRegex.test(email)) {
+										alert("Please enter a valid email address!");
+										return false;
+									}
+
+									// Validate phone number format (minimum 10 digits, optional leading +)
+									var phoneRegex = /^\+?\d{10,}$/;
+									if (!phoneRegex.test(phone)) {
+										alert("Please enter a valid phone number!");
+										return false;
+									}
+
+									// Validate if home delivery is selected
+									if (homeDelivery) {
+										if (location === "") {
+											alert("Please select your location!");
+											return false;
+										}
+										if (subLocation === "") {
+											alert("Please select your area!");
+											return false;
+										}
+										if (placeName === "") {
+											alert("Please provide your place name for home delivery!");
+											return false;
+										}
+										if (landmark === "") {
+											alert("Please provide a landmark for home delivery!");
+											return false;
+										}
+									}
+
+									// If validation passed, display the popup
+									displayOrderSuccessPopup();
+
+									// Submit the form data to Google Sheets
+									submitFormDataToGoogleSheets();
+
+									// Return false to prevent the form from submitting normally
+									return false;
+								}
+
+
+								function displayOrderSuccessPopup() {
+									document.getElementById("orderSuccessPopup").style.display = "block";
+								}
+								function submitFormDataToGoogleSheets() {
+									// Code to submit form data to Google Sheets goes here
+
+									// Prevent the default form submission behavior
+									event.preventDefault();
+
+									// Instead of this, you can make an AJAX request to send the form data to Google Sheets
+									// Example AJAX request:
+
+									var formData = new FormData(document.forms["orderForm"]);
+
+									fetch('https://script.google.com/macros/s/AKfycbyPzl_vCLQ-w5i16fpUaxtr2FUioxBolqSyxW9k0ydYh7-FhjnZkRSbm-OiyIC2W-80lA/exec', {
+										method: 'POST',
+										body: formData
+									})
+										.then(response => {
+											if (!response.ok) {
+												throw new Error('Network response was not ok');
+											}
+											return response.json();
+										})
+										.then(data => {
+											console.log('Form data submitted successfully:', data);
+										})
+										.catch(error => {
+											console.error('There was a problem submitting the form data:', error);
+										});
+
+								}
+							</script>
+
+							
+</body>
+
+</html>
